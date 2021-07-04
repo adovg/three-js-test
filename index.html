@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <title>Three-JS test work</title>
+    <link rel="shortcut icon" href="build/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="./libs/three.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="build/css/style.css">
+</head>
+
+<body>
+<div class="content">
+    <div class="container">
+        <button id="btn-delete" >Delete</button>
+        <button onclick="choseFigure()">Chose</button>
+
+        <form action="">
+            <input list="figures" id="figure-list">
+            <datalist id="figures">
+                <option selected>Cube</option>
+                <option>Pyramid</option>
+                <option>Sphere</option>
+            </datalist>
+        </form>
+
+    
+        <div class="uuid-output" id="element-uuid"><p></p></div>
+        <canvas id="canvas"></canvas>
+ 
+       
+
+    </div>
+</div>            
+
+<script src="./build/js/script.js"></script>
+</body>
+
+</html>
