@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="./libs/dat.gui.min.js"></script>
+    <!-- <script src="./libs/OrbitControls.js"></script> -->
     <script src="./libs/three.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="build/css/style.css">
@@ -18,7 +20,7 @@
 <body>
 <div class="content">
     <div class="container">
-        <button id="btn-delete" >Delete</button>
+        <!-- <button id="btn-delete" >Delete</button> -->
         <button onclick="choseFigure()">Chose</button>
 
         <form action="">
@@ -28,8 +30,10 @@
                 <option>Pyramid</option>
                 <option>Sphere</option>
             </datalist>
-        </form>
 
+            <input type="number" id="scale" min="1" placeholder="Enter three number to scale" >
+        </form>
+        <!-- onkeypress="return event.charCode >= 48" -->
     
         <div class="uuid-output" id="element-uuid"><p></p></div>
         <canvas id="canvas"></canvas>

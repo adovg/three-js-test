@@ -52,3 +52,14 @@ body {
 .figures {
   border: 1 px solid red;
 }
+
+#canvas {
+position: relative;
+z-index: 0;
+}
+
+.uuid-output {
+  position: absolute;
+  z-index: 3;
+  color: white;
+}

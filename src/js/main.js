@@ -1,8 +1,25 @@
+window.onload = () => {}
+// import { OrbitControls } from '../../libs/OrbitControls';
+
+let createScale = () => {
+	let userScale = document.getElementById('scale').value;
+	
+	let withOfFigure = userScale[0];
+	
+	let heightOfFigure = userScale[1];
+	let depthOfFigure = userScale[2];
+	let arrOfScale =  [withOfFigure, heightOfFigure, depthOfFigure];
+	return arrOfScale;
+};
+
+
 
 ////////////////////// get figure from input
 let choseFigure = () => {
 	let valueOfGigure = document.getElementById('figure-list').value;
-	console.log(valueOfGigure);
+	
+
+	
 
 	if (valueOfGigure == 'Sphere') {
 		generateSphere(width, height);
@@ -23,6 +40,8 @@ let width = window.innerWidth;
 let height = window.innerHeight;
 let canvas = document.getElementById('canvas');
 
+
+
 canvas.setAttribute('width', width);
 canvas.setAttribute('height', height);
 
@@ -35,46 +54,62 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 5000);
 camera.position.set(0, 0, 1000);
 
+
+
+// 	renderer.render( scene, camera );
+
+
+
 let light = new THREE.AmbientLight(0xffffff);
 scene.add(light);
-
-//console.log( renderer.domElement.appendChild )
-
-
-
 
 /////////////////////////////////////////////////////////////////////////// create scene
 
 
 
 ///////////////////////////////// create sphere
-function generateSphere () {
+function generateSphere (width, height) {
 
 let geometry = new THREE.SphereGeometry(200, 120, 120);
-//let material = new THREE.MeshNormalMaterial();
-let material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
+let material = new THREE.MeshNormalMaterial();
+//let material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
 
 let sphere = new THREE.Mesh(geometry, material);
-//sphere.position.set(Math.random() * 1000 - height, Math.random() * 1000 - width )
-//sphere.position.y += 200;
- sphere.position.y += sphere.positionY;
-// sphere.position.z += sphere.positionZ;
+//withOfFigure, heightOfFigure, depthOfFigure
+//
+// createScale();
+// console.log(arrOfScale);
+let sphereScale = createScale();
+sphere.scale.set(sphereScale[0], sphereScale[1], sphereScale[0]);
+//sphere.scale.set(withOfFigure, heightOfFigure, depthOfFigure);
+sphere.position.x = Math.random() * width - height;
+sphere.position.y = Math.random() * width - height;
+sphere.position.z = Math.random() * width - height;
 
-scene.add(sphere);
-// console.log(sphere.uuid);
 
+function createMeshId () {
+	let idItem = document.createElement("p");
+	idItem.classList.add('item-uuid');
+	idItem.style.cursor = "pointer";
+	idItem.innerHTML = sphere.uuid;
 
+	 let idOfDiv = document.getElementById("element-uuid");
+	 idOfDiv.appendChild(idItem);
 
+	 idItem.onclick = () => {
+		for(let i = 0; i <= scene.children.length; i++) {
+			if (sphere.uuid == scene.children[i].uuid) {
+				scene.remove(scene.children[i]);
+				idOfDiv.removeChild(idItem);
+			}
+		}
 
-let deleteSphereBtn = document.getElementById('btn-delete');
-
-deleteSphereBtn.onclick = () => {
-	let lastIndex = scene.children.length - 1;
-	endElement = scene.children[lastIndex]; 
-	scene.remove(endElement);
-	console.log('done');
+	}
 };
 
+createMeshId ();
+
+scene.add(sphere);
 
 	function refresh () {
 		sphere.rotation.x += 0.001;
@@ -84,79 +119,96 @@ deleteSphereBtn.onclick = () => {
 
 	refresh();
 
-};
-///////////////////////////////// create sphere
+}; ///////////////////////////////// create sphere
 
 
 ///////////////////////////////// create cube
 function generateCube (width, height) {
-	let geometry = new THREE.BoxGeometry( 300, 300, 300 );
-	let material = new THREE.MeshBasicMaterial( {color: 0x00ff00, wireframe: true} );
-	let cube = new THREE.Mesh( geometry, material );
+	const geometry = new THREE.BoxGeometry( 300, 300, 300 );
+	//let material = new THREE.MeshBasicMaterial( {color: 0x00ff00, wireframe: true} );
+	const material = new THREE.MeshNormalMaterial();
+	const cube = new THREE.Mesh( geometry, material );
+	//console.log(withOfFigure, heightOfFigure, depthOfFigure);
 	scene.add( cube );
-	//renderer.render(scene, camera);
-	//console.log(width);
+
+	//cube.scale.set(withOfFigure, heightOfFigure, depthOfFigure);
+	
 	cube.position.x = Math.random() * width - height;
 	cube.position.y = Math.random() * width - height;
 	cube.position.z = Math.random() * width - height;
-	//console.log('cube');
+
+	let cubeScale = createScale();
+	cube.scale.set(cubeScale[0], cubeScale[1], cubeScale[0]);
 
 	function refresh () {
-		//cube.rotation.y += 0.001;
+		
 		renderer.render(scene, camera);
 		requestAnimationFrame( () => { refresh() } );
 	};
 
 	refresh();
-	//console.log(cube.uuid);
 	
-	///////////////////////////////////////////////////////////////////// создаем параграфы с id 
 	let idItem = document.createElement("p");
 	idItem.classList.add('item-uuid');
 	idItem.style.cursor = "pointer";
 	idItem.innerHTML = cube.uuid;
-	//document.getElementById("element-uuid").appendChild(idItem);
+
 	 let idOfDiv = document.getElementById("element-uuid");
-	// console.log(idOfDiv);
 	 idOfDiv.appendChild(idItem);
-	//  console.log(idItem);
-	//  console.log(cube.uuid);
-	//  console.log(this.uuid);
 
 	 idItem.onclick = () => {
-
 		for(let i = 0; i <= scene.children.length; i++) {
-			console.log(scene.children[i].uuid);
-
-			if (cube.uuid || sphere.uuid || pyramid.uuid == scene.children[i].uuid) {
-				console.log('true')
+			if (cube.uuid == scene.children[i].uuid) {
 				scene.remove(scene.children[i]);
+				idOfDiv.removeChild(idItem);
 			}
 		}
 
-		// if (idItem ) {
-		// 	console.log(scene.children)
-		// 	//console.log( 'this.focused.name: ' + this.name );
-		// console.log(`${this.uuid} ,if work`)
-			
-		// 	//scene.remove(cube)
-		// }
-
 	}
+
 };
-///////////////////////////////// create sphere
+///////////////////////////////// create cube
 
 
 
 
 ///////////////////////////////// create pyramid
-function generatePyramid () {
+function generatePyramid (width, height) {
 	const geometry = new THREE.ConeGeometry( 200, 300, 3 );
-	const material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe: true} );
+	const material = new THREE.MeshNormalMaterial()
 	const pyramid = new THREE.Mesh( geometry, material );
 	scene.add( pyramid );
 
-	console.log('pyramid');
+	pyramid.position.x = Math.random() * width - height;
+	pyramid.position.y = Math.random() * width - height;
+	pyramid.position.z = Math.random() * width - height;
+
+	let pyramidScale = createScale();
+	cube.scale.set(pyramidScale[0], pyramidScale[1], pyramidScale[0]);	
+
+	function createMeshId () {
+		let idItem = document.createElement("p");
+		idItem.classList.add('item-uuid');
+		idItem.style.cursor = "pointer";
+		idItem.innerHTML = pyramid.uuid;
+	
+		 let idOfDiv = document.getElementById("element-uuid");
+		 idOfDiv.appendChild(idItem);
+	
+		 idItem.onclick = () => {
+			for(let i = 0; i <= scene.children.length; i++) {
+				if (pyramid.uuid == scene.children[i].uuid) {
+					scene.remove(scene.children[i]);
+					idOfDiv.removeChild(idItem);
+				}
+			}
+	
+		}
+	};
+	
+	createMeshId ();
+
+
 
 	function refresh () {
 		pyramid.rotation.y += 0.001;
@@ -165,6 +217,7 @@ function generatePyramid () {
 	};
 
 	refresh();
+  
 
 
 };
